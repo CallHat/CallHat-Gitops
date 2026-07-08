@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: core-service
+  namespace: callhat-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: core-service
+  template:
+    metadata:
+      labels:
+        app: core-service
+    spec:
+      containers:
+      - name: core-service
+        image: tien886/callhat-core:latest
+        ports:
+        - containerPort: 8082
+        envFrom:
+        - secretRef:
+            name: callhat-db-secret

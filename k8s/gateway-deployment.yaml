@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gateway-service
+  namespace: callhat-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gateway-service
+  template:
+    metadata:
+      labels:
+        app: gateway-service
+    spec:
+      containers:
+      - name: gateway-service
+        image: tien886/callhat-gateway:latest
+        ports:
+        - containerPort: 8080
+        envFrom:
+        - secretRef:
+            name: callhat-db-secret
